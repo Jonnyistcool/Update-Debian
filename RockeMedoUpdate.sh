@@ -8,6 +8,24 @@ highlight() {
   echo -e "\e[1;35m$1\e[0m" 
 }
 
+# Maskiert NGINX
+
+sudo systemctl mask nginx.serivce
+
+# Setze Skript im Fehlerfall auf Abbruch
+set -e
+
+echo "Überprüfe, ob Zabbix Agent in /opt installiert ist..."
+
+if [ -e /etc/zabbix/zabbix_agentd.conf ]; then
+    echo "Zabbix agent wird dank dem script nicht funktionieren! Bitte Timo Frings Bescheid geben."
+    exit 1
+fi
+
+# Empty line for spacing
+echo
+echo "Zabbix Agent nicht installiert oder in /opt installiert, fahre fort..."
+echo
 
 # Setze Skript im Fehlerfall auf Abbruch
 set -e
@@ -20,16 +38,22 @@ highlight "Starte System-Update für Debian..."
 #fi
 
 # Starte 'sl' als Ladeanimation
+echo
 highlight "Loading... 🚂"
+echo
 #sl
 
 # Entferne alte buster-backports-Einträge und füge sie erneut hinzu
+echo
 highlight "Konfiguriere die Quellenliste..."
+echo
 sudo sed -i '/buster-backports/d' /etc/apt/sources.list
 echo "deb http://archive.debian.org/debian buster-backports main contrib non-free" | sudo tee -a /etc/apt/sources.list
 
 # Aktualisiere die Paketliste
+echo
 highlight "Aktualisiere die Paketliste..."
+echo
 sudo apt-get update
 
 # Vollständiges System-Upgrade
@@ -69,7 +93,8 @@ sudo systemctl restart x11vnc
 # x11vnc -ncache
 
 # Abschlussmeldung
+echo
 echo -e "\e[32m✔️ Debian-System-Update abgeschlossen! Du hast es an dich geglaubt und es geschafft Tomedo zu Fixen! Das System wird nun neu gestartet.\e[0m"
-
+echo
 # Neustart des Systems
 sudo reboot
