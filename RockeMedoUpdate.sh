@@ -8,21 +8,24 @@ highlight() {
   echo -e "\e[1;35m$1\e[0m" 
 }
 
-# Maskiert NGINX
+# Prüfen, ob Nginx läuft
+if systemctl is-active --quiet nginx; then
+    highlight "Nginx läuft. Server wird aufgrund von Nginx neu gestartet."
+    
+    # Nginx maskieren (deaktivieren und verhindern, dass es gestartet wird)
+    sudo systemctl mask nginx
+    echo
+    highlight "Nginx wurde maskiert."
+    echo
 
-sudo systemctl stop nginx.service
-
-sleep 1
-
-sudo systemctl mask nginx.service
-
-sleep 1
-
-sudo systemctl status nginx.service
-
-sleep 1
-
-sudo systemctl disable nginx.service
+    # Server neustarten
+    echo
+    highlight "Server wird jetzt neu gestartet..."
+    echo
+    sudo reboot
+else
+    highlight "Nginx läuft nicht. Skript fährt fort."
+fi
 
 # Setze Skript im Fehlerfall auf Abbruch
 
