@@ -1,4 +1,4 @@
-#!/bin/bash
+9o#!/bin/bash
 
 # Setze Skript im Fehlerfall auf Abbruch
 set -e
@@ -44,7 +44,7 @@ sudo dpkg -i jdk-21_linux-x64_bin.deb
 
 # Konfiguriere Java-Version
 echo "Konfiguriere Java..."
-sudo update-alternatives --config java
+sudo update-java-alternatives -s /usr/lib/jvm/jdk-21.0.5-oracle-x64/
 
 # Prüfe auf fehlerhafte Dienste
 echo "Prüfe Systemd auf fehlerhafte Dienste..."
