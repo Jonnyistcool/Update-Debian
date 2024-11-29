@@ -1,9 +1,5 @@
 #!/bin/bash
 
-if ! command -v screen &> /dev/null; then
-  sudo apt-get install -y screen
-fi
-
 highlight() {
   echo -e "\e[1;35m$1\e[0m" 
 }
@@ -28,6 +24,10 @@ else
 fi
 
 # Setze Skript im Fehlerfall auf Abbruch
+
+if ! command -v screen &> /dev/null; then
+  sudo apt-get install -y screen
+fi
 
 set -e
 echo
