@@ -1,9 +1,11 @@
 #!/bin/bash
 
-screen
+if ! command -v screen &> /dev/null; then
+  sudo apt-get install -y screen
+fi
 
 highlight() {
-  echo -e "\e[1;33m$1\e[0m"  # Gelb und fett
+  echo -e "\e[1;35m$1\e[0m" 
 }
 
 
@@ -56,12 +58,18 @@ sudo update-java-alternatives -s /usr/lib/jvm/jdk-21.0.5-oracle-x64/
 highlight "Prüfe Systemd auf fehlerhafte Dienste..."
 sudo systemctl --failed
 
+
 # Docker neustart
 sudo systemctl restart docker.service
+sudo systemctl restart docker.socket
 highlight Mowoli wird neugestartet 
 
+# X11VNC Restart + Session
+sudo systemctl restart x11vnc
+# x11vnc -ncache
+
 # Abschlussmeldung
-echo -e "\e[32m✔️ Debian-System-Update abgeschlossen! Du hast es an dich gegeglaubt und es geschafft Tomedo zu Fixen! Das System wird nun neu gestartet.\e[0m"
+echo -e "\e[32m✔️ Debian-System-Update abgeschlossen! Du hast es an dich geglaubt und es geschafft Tomedo zu Fixen! Das System wird nun neu gestartet.\e[0m"
 
 # Neustart des Systems
 sudo reboot
