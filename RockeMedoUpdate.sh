@@ -6,13 +6,14 @@ set -e
 echo "Starte System-Update für Debian..."
 
 # Stelle sicher, dass 'sl' installiert ist
-if ! command -v sl &> /dev/null; then
-  sudo apt-get install -y sl
-fi
+# if ! command -v sl &> /dev/null; then
+#
+#  sudo apt-get install -y sl
+# fi
 
 # Starte 'sl' als Ladeanimation
-echo "Loading... 🚂"
-sl
+# echo "Loading... 🚂"
+# sl
 
 # Entferne alte buster-backports-Einträge und füge sie erneut hinzu
 echo "Konfiguriere die Quellenliste..."
