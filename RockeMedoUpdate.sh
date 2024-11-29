@@ -1,4 +1,4 @@
-9o#!/bin/bash
+#!/bin/bash
 
 # Setze Skript im Fehlerfall auf Abbruch
 set -e
